@@ -6,6 +6,7 @@
 import {useState} from "react"
 import Stepper from "./components/Stepper";
 import StepperControl from "./components/StepperControl";
+import { StepperContext } from "./contexts/StepperContext";
 import Personal from "./components/steps/Personal";
 import Education from "./components/steps/Education";
 import CourseChoice from "./components/steps/CourseChoice";
@@ -30,7 +31,10 @@ import Final from "./components/steps/Final";
 
 function App() {
 
-  const [currentStep, setCuurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(1);
+  const [userData, setUserData] = useState('');
+  const [finalData, setFinalData] = useState('')
+
 
   const steps = [
     "Personal Information",
@@ -53,10 +57,19 @@ function App() {
         return <Others />
       case 5:
         return <Final />
-      // case 6:
-      //   return <Personal />
+      default:
+    }
   }
+
+  const handleClick = (direction) => {
+    let newStep = currentStep;
+
+    direction === 'next' ? newStep++ : newStep--;
+
+    //check if steps are within bounds
+    newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
   }
+
   return (
     <div className="md:w-1/2 mx-auto shadow-xl rounded-2xl pb-2 bg-white">
       
@@ -68,9 +81,24 @@ function App() {
         />
       </div>
      
+      {/* Display components */}
+      <div className="my-10 p-10">
+        <StepperContext.Provider value={{
+          userData,
+          setUserData,
+          finalData,
+          setFinalData
+        }}>
+          {displayStep(currentStep)}
+        </StepperContext.Provider>
+      </div>
 
       {/* Navigation Control */}
-      <StepperControl />
+      <StepperControl 
+      handleClick={handleClick}
+      currentStep={currentStep}
+      steps={steps}
+      />
 
     </div>
   )

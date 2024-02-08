@@ -13,10 +13,10 @@ const Stepper = ( { steps , currentStep }) => {
       // current step
       if (count === stepNumber) {
         newSteps[count] ={
-            ... newSteps[count],
-            highlighted: true,
-            selected: true,
-            completed: true,
+          ... newSteps[count],
+          highlighted: true,
+          selected: true,
+          completed: true,
         };
         count++;
       }
@@ -27,17 +27,23 @@ const Stepper = ( { steps , currentStep }) => {
           highlighted: false,
           selected: true,
           completed: true,
-      };
-      count++;
+        };
+        count++;
       }
     //step pending
     else{
-
+      newSteps[count] ={
+        ... newSteps[count],
+        highlighted: false, 
+        selected: false,
+        completed: false,
+      };
+      count++;
     }
-    }
-    
   }
-
+  return newSteps;
+};
+    
   useEffect(() => {
     //create object
     const stepsState = steps.map((step, index) => 
@@ -61,17 +67,28 @@ const Stepper = ( { steps , currentStep }) => {
         }
         >
           <div className='relative flex flex-col items-center text-teal-600'>
-            <div className='rounded-full transition duration-500 ease-in-out border-2 border-gray-300 h-12 w-12 flex items-center justify-center py-3'>
-              {/* Display number */}1
+            <div className={`rounded-full transition duration-500 ease-in-out border-2 border-gray-300 
+            h-12 w-12 flex items-center justify-center py-3 ${step.selected ? 
+              'bg-green-600 text-white font-bold border border-green-600' : ''}`}
+            >
+              {/* Display number */}
+              {step.completed ? (
+                <span className='text-white text-xl font-bold'>&#10003;
+                </span>
+              ) : (
+                index + 1
+              )}
             </div>
             
-            <div className='absolute top-0 text-center mt-16 w-32 text-xs font-medium uppercase'>
+            <div className={`absolute top-0 text-center mt-16 w-32 text-xs font-medium uppercase
+            ${step.highlighted ? 'text-gray-900' : 'text-gray-400'}`}>
               {/* Display description */}
-              Description
+              {step.description}
             </div>
           </div>
           
-          <div className='flex-auto border-t-2 transition duration-500 ease-in-out'>
+          <div className={`flex-auto border-t-2 transition duration-500 
+          ease-in-out ${step.completed ? 'border-green-600' : 'border-gray-300'}`}>
             {/* Display line */}
           </div>
         </div>

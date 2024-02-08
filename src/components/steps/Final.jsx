@@ -1,9 +1,13 @@
 import React from 'react'
 
-const Final = () => {
+export default function Final() {
   return (
-    <div>Final</div>
+    <div className='container md:mt-10'>
+      <div className='flex flex-col items-center'>
+        
+      </div>
+
+    </div>
   )
 }
 
-export default Final
