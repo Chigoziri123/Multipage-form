@@ -10,7 +10,6 @@ import { StepperContext } from "./contexts/StepperContext";
 import Personal from "./components/steps/Personal";
 import Education from "./components/steps/Education";
 import CourseChoice from "./components/steps/CourseChoice";
-import Others from "./components/steps/Others";
 import Final from "./components/steps/Final";
 
 
@@ -37,11 +36,9 @@ function App() {
 
 
   const steps = [
-    "Personal Information",
-    "Educational Qualifications",
+    "Personal Data",
+    "Education",
     "Course Choice",
-    "Document Upload",
-    "Other Information",
     "Complete"
   ]
 
@@ -54,8 +51,6 @@ function App() {
       case 3:
         return <CourseChoice />
       case 4:
-        return <Others />
-      case 5:
         return <Final />
       default:
     }
