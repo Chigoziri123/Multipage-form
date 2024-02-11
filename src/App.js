@@ -91,12 +91,14 @@ function App() {
         </StepperContext.Provider>
       </div>
 
-      {/* Navigation Control */}
+      {/* Navigation controls */}
+      {currentStep != steps.length &&
       <StepperControl 
       handleClick={handleClick}
       currentStep={currentStep}
       steps={steps}
       />
+      }
 
     </div>
   )
